@@ -28,17 +28,30 @@ public class storeBid extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        //PrintWriter out = response.getWriter();
+       // out.print("<body><h1>durr baal</h2>");
+        int presentBid=Integer.parseInt(request.getParameter("pbid").trim());
+        //out.print("The present bid is"+presentBid);
+
+       //out.print("<script type=\"text/javascript\" > alert(<%=request.getParameter(\"pbid\")%>)</script>");
+
         try {
-          Listener.bidObject b=(Listener.bidObject)request.getSession().getServletContext().getAttribute("b");
-        if(  b.highestBid < Integer.parseInt( request.getParameter("pBid"))){
-            System.out.print("yes");
-            b.highestBid=Integer.parseInt( request.getParameter("pBid"));
-request.getSession().getServletContext().getRequestDispatcher("/ajax/Bid.jsp").forward(request, response);
+         Listener.bidObject b = (Listener.bidObject)getServletContext().getAttribute("b");
+        if(  b.highestBid < presentBid)
+        {
+      //     out.print("yes");
+            b.highestBid=presentBid;
+            b.highestBidder=request.getSession().getAttribute("name").toString();
+            response.sendRedirect("/rajatdutta_assignment/ajax/Bid.jsp");
+
+           // getServletContext().getRequestDispatcher("/ajax/Bid.jsp").forward(request, response);
+
         }
-request.getSession().getServletContext().getRequestDispatcher("/ajax/Bid.jsp").forward(request, response);
-        } finally { 
-            out.close();
+
+        }
+        finally {
+           // out.print("</body>");
+          //  out.close();
         }
     } 
 

@@ -77,7 +77,7 @@ function checkBid(){
        
          The Date and time is
          <%=c.get(Calendar.DAY_OF_MONTH) %>/
-         <%=c.get(Calendar.MONTH) %>/
+         <%=c.get(Calendar.MONTH)+1 %>/
          <%=c.get(Calendar.YEAR) %>,
          <span id="hour">   <%=c.get(Calendar.HOUR_OF_DAY) %></span>:
          <span id="minute">  <%=c.get(Calendar.MINUTE) %></span>:
@@ -106,8 +106,13 @@ Bidding will continue upto:<span id="deadline">
     <%=deadline%>:00 HRS
 </span>
 <div>
-    Starting Bid is :<form method="post" action="../storeBid">
+    
+    Current highest bid is:
         <span id="currentBid"><%=bcopy.highestBid%></span>INR
+        Current Highest Bid is by <%=bcopy.highestBidder%>
+       
+    <form method="post" action="../storeBid">
+
         <textarea  cols="20" rows="2"  id="pBid" name="pbid"> </textarea>
 
         <button  onclick="return checkBid()" >Submit Bid</button>

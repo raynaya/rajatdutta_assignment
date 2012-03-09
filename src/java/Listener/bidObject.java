@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
  */
 public class bidObject {
   public  String name;
+  public String highestBidder;
 public GregorianCalendar g;
 public int TIMEPERIODTOBID;
 public int highestBid;
