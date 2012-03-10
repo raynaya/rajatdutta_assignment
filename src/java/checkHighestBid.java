@@ -10,13 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
  * @author shamik
  */
-public class storeBid extends HttpServlet {
+public class checkHighestBid extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,31 +26,24 @@ public class storeBid extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-      //  response.setContentType("text/html;charset=UTF-8");
-        //PrintWriter out = response.getWriter();
-       // out.print("<body><h1>durr baal</h2>");
-        int presentBid=Integer.parseInt(request.getParameter("pbid").trim());
-        //out.print("The present bid is"+presentBid);
-
-       //out.print("<script type=\"text/javascript\" > alert(<%=request.getParameter(\"pbid\")%>)</script>");
-
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-         Listener.bidObject b = (Listener.bidObject)getServletContext().getAttribute("b");
-        if(  b.highestBid < presentBid)
-        {
-      //     out.print("yes");
-            b.highestBid=presentBid;
-            b.highestBidder=request.getSession().getAttribute("name").toString();
-            response.sendRedirect("/rajatdutta_assignment/ajax/Bid.jsp");
-
-           // getServletContext().getRequestDispatcher("/ajax/Bid.jsp").forward(request, response);
-
-        }
-
-        }
-        finally {
-           // out.print("</body>");
-          //  out.close();
+            Listener.bidObject bcopy = (Listener.bidObject)request.getSession().getServletContext().getAttribute("b");
+            out.print("Current highest bid is:"+bcopy.highestBid + "INR  by "+ bcopy.highestBidder);
+            
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet checkHighestBid</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet checkHighestBid at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            */
+        } finally { 
+            out.close();
         }
     } 
 
@@ -76,7 +68,6 @@ public class storeBid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

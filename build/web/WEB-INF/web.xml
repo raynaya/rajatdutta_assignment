@@ -12,9 +12,17 @@
         <servlet-name>storeBid</servlet-name>
         <servlet-class>storeBid</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>checkHighestBid</servlet-name>
+        <servlet-class>checkHighestBid</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>storeBid</servlet-name>
         <url-pattern>/storeBid</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkHighestBid</servlet-name>
+        <url-pattern>/checkHighestBid</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

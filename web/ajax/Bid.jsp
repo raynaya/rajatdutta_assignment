@@ -16,8 +16,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bidding table</title>
+        <script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
         <jsp:scriptlet>
-            session.setAttribute("name", request.getParameter("name"));
+            if(session.getAttribute("name")== null)
+    session.setAttribute("name", request.getParameter("name"));
+
  GregorianCalendar c= new GregorianCalendar();
 Listener.bidObject bcopy = (Listener.bidObject)session.getServletContext().getAttribute("b");
 int deadline=bcopy.g.get(Calendar.HOUR_OF_DAY)+bcopy.TIMEPERIODTOBID;
@@ -54,8 +57,21 @@ highestBid="<%=bcopy.highestBid%>";
         }
        }
    }
+   //alert($("#cBid").innerHTML);
+   $.ajax({
+beforeSend:function(){
+  //alert("entering");
+},
+url: '../checkHighestBid',
+   success: function( data ) {
+    $('.cBid').text(data);
+  
+  }
+});
+
    
    t=setTimeout("a()",1000);
+
 }
 function checkBid(){
     currentBid=document.getElementById("pBid").value.trim();
@@ -72,7 +88,7 @@ function checkBid(){
     </head>
     <body onLoad="a()">
       
-        <h1>Hello World!</h1>
+        <h1>Hello <%=request.getSession().getAttribute("name")%></h1>
             
        
          The Date and time is
@@ -106,11 +122,9 @@ Bidding will continue upto:<span id="deadline">
     <%=deadline%>:00 HRS
 </span>
 <div>
-    
-    Current highest bid is:
-        <span id="currentBid"><%=bcopy.highestBid%></span>INR
-        Current Highest Bid is by <%=bcopy.highestBidder%>
-       
+    <div class="cBid">
+    Current highest bid is:<%=bcopy.highestBid%>INR  by <%=bcopy.highestBidder%>
+</div>
     <form method="post" action="../storeBid">
 
         <textarea  cols="20" rows="2"  id="pBid" name="pbid"> </textarea>

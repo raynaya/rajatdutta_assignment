@@ -20,7 +20,7 @@ public class ApplicationListener implements ServletContextListener {
 
 
 
-bidObject b=new bidObject("ipod",new GregorianCalendar(2012,02,9,16,00,00),2,16000);
+bidObject b=new bidObject("ipod",new GregorianCalendar(2012,02,9,16,00,00),10,16000);
 sce.getServletContext().setAttribute("b",b );
     }
 
